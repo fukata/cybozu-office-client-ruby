@@ -1,2 +1,2 @@
-# cybozu-office-client-ruby
+# cybozu-office-ruby
 Cybozu Office Client (Ruby)
