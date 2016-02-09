@@ -1,5 +1,6 @@
 module CybozuOffice
   class Client
+    include Api::Base
     include Api::Message
 
     def initialize(opt)
