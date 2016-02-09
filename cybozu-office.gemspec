@@ -3,18 +3,24 @@ $:.push File.expand_path("../lib", __FILE__)
 require 'date'
 require "cybozu-office/version"
 
-Gem::Specification.new do |s|
-  s.name        = "cybozu-office"
-  s.required_ruby_version = '>= 1.9.3'
-  s.version     = CybozuOffice::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Tatsuya Fukata"]
-  s.email       = ["tatsuya.fukata@gmail.com"]
-  s.homepage    = "https://github.com/fukata/cybozu-office-ruby"
-  s.date        = Date.today.to_s
-  s.summary     = s.description = %q{Cybozu Office Client (Ruby)}
-  s.files       = Dir['LICENSE', 'README.md', 'lib/**/*']
-  s.require_paths = ["lib"]
-  s.executables = []
-  s.license     = 'Apache 2.0'
+Gem::Specification.new do |gem|
+  gem.name        = "cybozu-office"
+  gem.version     = CybozuOffice::VERSION
+
+  gem.authors     = ["Tatsuya Fukata"]
+  gem.email       = ["tatsuya.fukata@gmail.com"]
+  gem.summary     = gem.description = %q{Cybozu Office Client (Ruby)}
+  gem.homepage    = "https://github.com/fukata/cybozu-office-ruby"
+  gem.license     = 'Apache 2.0'
+  
+  gem.files       = `git ls-files`.split($\) 
+  gem.executables = []
+  gem.test_files  = gem.files.grep(%r{^(test|spec|features)/})
+  gem.require_paths = ["lib"]
+  gem.has_rdoc    = false
+
+  gem.required_ruby_version = '>= 1.9.3'
+
+  gem.add_development_dependency "rake", [">= 0.9.2"]
+  gem.add_development_dependency "rspec", ["~> 2.13.0"]
 end

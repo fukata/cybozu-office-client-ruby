@@ -1,2 +1,5 @@
-module CybozuOffice
-end
+require 'cybozu-office/version'
+require 'cybozu-office/api'
+require 'cybozu-office/api/message'
+require 'cybozu-office/connection'
+require 'cybozu-office/client'
