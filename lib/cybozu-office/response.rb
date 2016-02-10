@@ -7,12 +7,12 @@ module CybozuOffice
       @service = service
       @method = method
       @raw_response = raw_response
-      @doc = REXML::Document.new(@raw_response)
+      @doc = REXML::Document.new(@raw_response) if @raw_response.to_s.length > 0
       @response = nil
     end
 
     def success?
-      @doc.elements['soap:Envelope/soap:Body/soap:Fault'].nil?
+      @doc and @doc.elements['soap:Envelope/soap:Body/soap:Fault'].nil?
     end
 
     def response
