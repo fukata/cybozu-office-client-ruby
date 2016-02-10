@@ -1,9 +1,39 @@
 module CybozuOffice
   module Api
     module Message
+      SERVICE = "Message"
+
       # 1.5 MessageCreateThreads
       def message_create_threads(opt)
-        "message_create_threads"
+        require 'base64'
+
+        addressee_xml = opt[:user_ids].map{|id| %Q{<addressee xmlns="http://schemas.cybozu.co.jp/message/2008" user_id="#{id}" deleted="false" confirmed="false"/>}}.join("\n") if opt[:user_ids]
+        file_content_xml = opt[:files].each_with_index.map do |file,i|
+          %Q{<file id="attached#{i}" name="#{File::basename(file)}" mime_type="appliaction/octet-stream"/>}
+        end.join("\n") if opt[:files]
+        file_xml = opt[:files].each_with_index.map do |file,i|
+          %Q{<file id="attached#{i}"><content>#{Base64.encode64(File.binread(file))}</content></file>}
+        end.join("\n") if opt[:files]
+        
+        params = <<-EOS
+        <parameters xmlns="">
+          <create_thread>
+            <thread
+              id="dummy"
+              version="999999"
+              subject="#{opt[:subject]}"
+              confirm="#{opt[:confirm] == true}"
+              is_draft="#{opt[:is_draft] == true}">
+              #{addressee_xml}
+              <content xmlns="http://schemas.cybozu.co.jp/message/2008" body="#{opt[:body]}">
+                #{file_content_xml}
+              </content>
+            </thread>
+            #{file_xml}
+          </create_thread>
+        </parameters>
+        EOS
+        request(SERVICE, "MessageCreateThreads", params)
       end
     end
   end

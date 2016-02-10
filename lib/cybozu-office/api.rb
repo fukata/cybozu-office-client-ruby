@@ -22,7 +22,7 @@ module CybozuOffice
           </Security>
       </soap:Header>
         <soap:Body>
-          <#{method} xmlns="http://wsdl.cybozu.co.jp/base/2008">
+          <#{method} xmlns="http://wsdl.cybozu.co.jp/#{service.downcase}/2008">
             #{params}
           </#{method}>
         </soap:Body>
@@ -36,7 +36,7 @@ module CybozuOffice
       require 'rest-client'
       xml = make_request_xml(service, method, params)
       puts xml if @option[:debug]
-      response = RestClient.post @option[:url] + service, xml, :content_type => "application/soap+xml; charset=utf-8; action=\"#{method}\""
+      response = RestClient.post @option[:url] + service, xml, :content_type => "application/soap+xml; charset=utf-8; action=\"#{method}\"" unless @option[:dry_run]
       CybozuOffice::Response.new(response, service, method)
     end
   end

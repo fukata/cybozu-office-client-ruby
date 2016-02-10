@@ -16,7 +16,7 @@ module CybozuOffice
     end
 
     def response
-      if @response.nil? then
+      if @raw_response.to_s.length > 0 and @response.nil? then
         response = @doc.elements["soap:Envelope/soap:Body/#{@service.downcase}:#{@method}Response/returns"]
         if Hash.respond_to?(:from_xml) then
           @response = Hash.from_xml(response.to_s)
