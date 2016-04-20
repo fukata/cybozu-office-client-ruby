@@ -18,8 +18,9 @@ module CybozuOffice
         content_xml = %Q{<content xmlns="http://schemas.cybozu.co.jp/message/2008"}
         content_xml << %Q{ body="#{opt[:body]}"}
         content_xml << %Q{ html_body="#{opt[:html_body]}"} if opt.key?(:html_body)
-        content_xml << file_content_xml 
-        content_xml << %Q{</content>} 
+        content_xml << file_content_xml.to_s 
+        content_xml << %Q{</content>}
+
         params = <<-EOS
         <parameters xmlns="">
           <create_thread>
