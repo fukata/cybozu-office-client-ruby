@@ -14,7 +14,12 @@ module CybozuOffice
         file_xml = opt[:files].each_with_index.map do |file,i|
           %Q{<file id="attached#{i}"><content>#{Base64.encode64(File.binread(file))}</content></file>}
         end.join("\n") if opt[:files]
-        
+       
+        content_xml = %Q{<content xmlns="http://schemas.cybozu.co.jp/message/2008"}
+        content_xml << %Q{ body="#{opt[:body]}"}
+        content_xml << %Q{ html_body="#{opt[:html_body]}"} if opt.key?(:html_body)
+        content_xml << file_content_xml 
+        content_xml << %Q{</content>} 
         params = <<-EOS
         <parameters xmlns="">
           <create_thread>
@@ -25,9 +30,7 @@ module CybozuOffice
               confirm="#{opt[:confirm] == true}"
               is_draft="#{opt[:is_draft] == true}">
               #{addressee_xml}
-              <content xmlns="http://schemas.cybozu.co.jp/message/2008" body="#{opt[:body]}">
-                #{file_content_xml}
-              </content>
+              #{content_xml}
             </thread>
             #{file_xml}
           </create_thread>
