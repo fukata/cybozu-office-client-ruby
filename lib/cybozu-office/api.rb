@@ -1,5 +1,11 @@
 module CybozuOffice
   module Api
+    def encode_xml_str(text)
+      text = text.encode(xml: :text)
+                 .gsub(/\r?\n/, '&#xD;&#xA;')
+                 .gsub('&amp;#xD;&amp;#xA;', '&#xD;&#xA;') # compatible already encode text
+    end
+
     def make_request_xml(service, method, params)
       time = Time.now
       created = time.strftime('%Y-%m-%dT%H:%M:%SZ')

@@ -16,7 +16,7 @@ module CybozuOffice
         end.join("\n") if opt[:files]
 
         content_xml = %Q{<content xmlns="http://schemas.cybozu.co.jp/message/2008"}
-        content_xml << %Q{ body="#{opt[:body].to_s.encode(xml: :text)}"}
+        content_xml << %Q{ body="#{opt[:body].to_s.encode(xml: :text).gsub(/\r?\n/, '&#xD;&#xA;')}"}
         content_xml << %Q{ html_body="#{opt[:html_body].to_s.encode(xml: :text)}"} if opt.key?(:html_body)
         content_xml << %Q{>}
         content_xml << file_content_xml.to_s
