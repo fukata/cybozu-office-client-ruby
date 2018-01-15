@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cybozu-office (0.0.1)
+    cybozu-office (0.0.3)
       rest-client (~> 1.8.0)
       xml-simple (~> 1.1.5)
 
@@ -9,11 +9,11 @@ GEM
   remote: http://rubygems.org/
   specs:
     diff-lcs (1.2.5)
-    domain_name (0.5.20160128)
+    domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
-    mime-types (2.99)
+    mime-types (2.99.3)
     netrc (0.11.0)
     rake (10.5.0)
     rest-client (1.8.0)
@@ -35,7 +35,7 @@ GEM
     rspec-support (3.4.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.2)
+    unf_ext (0.0.7.4)
     xml-simple (1.1.5)
 
 PLATFORMS
@@ -47,4 +47,4 @@ DEPENDENCIES
   rspec (~> 3.4.0)
 
 BUNDLED WITH
-   1.10.5
+   1.14.6
